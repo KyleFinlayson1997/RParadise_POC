@@ -8,6 +8,7 @@ public class fpsMouseLook : MonoBehaviour
 
     public float sensitivity = 5.0f;
     public float smoothing = 2.0f;
+    public float viewRange = 90.0f;
 
     private void Start()
     {
@@ -23,7 +24,7 @@ public class fpsMouseLook : MonoBehaviour
         smoothV.y = Mathf.Lerp(smoothV.y, md.y, 1f / smoothing);
         mouseLook += smoothV;
 
-        transform.localRotation = Quaternion.AngleAxis(-mouseLook.y, Vector3.right);
+        transform.localRotation = (Quaternion.AngleAxis(Mathf.Clamp(-mouseLook.y, -viewRange, viewRange), Vector3.right));
         fpsCharacter.transform.localRotation = Quaternion.AngleAxis(mouseLook.x, fpsCharacter.transform.up);
     }
 }
