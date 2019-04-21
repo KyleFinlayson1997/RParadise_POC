@@ -9,19 +9,38 @@ public class WalletBase : MonoBehaviour
 
     public Text moneyUI;
 
+    public bool mchanged;
+
+    void Moneyadd(float amount)
+    {
+        money = money + amount;
+        mchanged = true;
+    }
+
+    void Moneysub(float amount)
+    {
+        money = money - amount;
+        if (money < 0)
+        {
+            money = 0;
+        }
+        mchanged = true;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         moneyUI = GetComponent<Text>();
+        moneyUI.text = "$" + money;
     }
 
     // Update is called once per frame
     void Update()
     {
-        moneyUI.text = "$" + money;
-        if (money < 0)
+        if (mchanged == true)
         {
-            money = 0;
+            moneyUI.text = "$" + money;
+            mchanged = false;
         }
     }
 }
